@@ -11,6 +11,7 @@ public class IElementInfoTest
     private const string TestingAssemblyPath = @"assemblies/AssemblyBrowserTest.dll";
     
     private const string MethodSignature = "Int32 Add(Int32)";
+    private const string MethodWithoutParamsSignature = "Void DoNothing()";
     private const string StaticMethodSignature = "Int32 Add(Int32, Int32)";
     private const string FieldFullName = "Int32 publicField";
     private const string PropertyFullName = "String Property";
@@ -18,6 +19,7 @@ public class IElementInfoTest
     private readonly ObservableCollection<IElementInfo> _namespaces;
     
     private readonly IElementInfo? _methodAdd;
+    private readonly IElementInfo? _methodWithoutParams;
     private readonly IElementInfo? _staticMethodAdd;
     private readonly IElementInfo? _field;
     private readonly IElementInfo? _property;
@@ -38,6 +40,8 @@ public class IElementInfoTest
             typeA.Elements.FirstOrDefault(el => el.Name == MethodSignature);
         _staticMethodAdd = 
             typeB.Elements.FirstOrDefault(el => el.Name == StaticMethodSignature);
+        _methodWithoutParams =
+            typeB.Elements.FirstOrDefault(el => el.Name == MethodWithoutParamsSignature);
         _field = 
             typeA.Elements.FirstOrDefault(el => el.Name == FieldFullName);
         _property = 
@@ -55,11 +59,17 @@ public class IElementInfoTest
     {
         Assert.IsNotNull(_methodAdd, $"AssemblyInfo hasn't '{MethodSignature}'");
     }
-    
+
     [Test]
     public void Name_GetStaticMethodFullName_ReturnSignature()
     {
         Assert.IsNotNull(_staticMethodAdd, $"AssemblyInfo hasn't '{StaticMethodSignature}'");
+    }
+    
+    [Test]
+    public void Name_GetMethodWithoutParamsFullName_ReturnSignature()
+    {
+        Assert.IsNotNull(_methodWithoutParams, $"AssemblyInfo hasn't '{MethodWithoutParamsSignature}'");
     }
 
     [Test]
