@@ -52,8 +52,6 @@ public class TypeInfo : IElementInfo
         {
             if (!methodInfo.IsDefined(typeof(ExtensionAttribute), false))
                 Elements.Add(new MethodInfo(methodInfo));
-            else
-                Elements.Add(new ExtensionMethodInfo(methodInfo, true));
         }
     }
     
@@ -68,7 +66,7 @@ public class TypeInfo : IElementInfo
         
         foreach (var methodInfo in extensionMethods)
         {
-            Elements.Add(new ExtensionMethodInfo(methodInfo, false));
+            Elements.Add(new ExtensionMethodInfo(methodInfo));
         }
         
     }

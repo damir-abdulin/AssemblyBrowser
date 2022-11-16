@@ -5,29 +5,20 @@ namespace AssemblyBrowserCore.Elements;
 
 public class ExtensionMethodInfo : IElementInfo
 {
-    private readonly bool _isInExtensionClass;
-    
     public string Name { get; }
     public ObservableCollection<IElementInfo> Elements { get; }
     
-    public ExtensionMethodInfo(System.Reflection.MethodInfo methodInfo, bool isInExtensionClass)
+    public ExtensionMethodInfo(System.Reflection.MethodInfo methodInfo)
     {
-        _isInExtensionClass = isInExtensionClass;
-        
         Name = GetMethodSignature(methodInfo);
         Elements = new ObservableCollection<IElementInfo>();
     }
 
-    private string GetMethodSignature(System.Reflection.MethodInfo methodInfo)
+    private static string GetMethodSignature(System.Reflection.MethodInfo methodInfo)
     {
         var signature = new StringBuilder();
 
-        if (_isInExtensionClass)
-            signature.Append("EXTENDS: ");
-        else
-            signature.Append("EXTENSION METHOD: ");
-        
-        signature.Append($"{methodInfo.ReturnParameter.ParameterType.Name} {methodInfo.Name}(");
+        signature.Append($"EXTENSION METHOD: {methodInfo.ReturnParameter.ParameterType.Name} {methodInfo.Name}(");
         
         var methodParams = methodInfo.GetParameters();
         
