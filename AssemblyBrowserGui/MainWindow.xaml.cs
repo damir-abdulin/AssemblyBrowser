@@ -9,10 +9,10 @@ namespace AssemblyBrowserGui
     /// </summary>
     public partial class MainWindow : Window
     {
-        private ObservableCollection<IElementInfo> _namespaces;
         public MainWindow()
         {
             InitializeComponent();
+            DataContext = new ApplicationViewModel();
         }
     }
 }

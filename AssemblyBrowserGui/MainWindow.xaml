@@ -29,7 +29,8 @@
         <StackPanel Grid.Column="0" Background="#F0F0F0" Margin="10">
             <TextBlock TextAlignment="Center" FontWeight="Bold"
                        Margin="10">Управление</TextBlock>
-            <Button Margin="10" Background="LightGray">Загрузить сборку</Button>
+            <Button Margin="10" Background="LightGray"
+                    Command="{Binding LoadNewAssemblyCommand}">Загрузить сборку</Button>
         </StackPanel>
         
         <TreeView x:Name="TreeView1" Grid.Column="1" Background="#F0F0F0"

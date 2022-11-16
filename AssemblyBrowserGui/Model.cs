@@ -23,6 +23,11 @@ public class Model : INotifyPropertyChanged
         _namespaces = AssemblyLoader.GetNamespaces(@"assemblies/AssemblyBrowserTest.dll");
     }
 
+    public void UpdateNamespace(string assemblyPath)
+    {
+        _namespaces = AssemblyLoader.GetNamespaces(assemblyPath);
+    }
+
     public event PropertyChangedEventHandler? PropertyChanged;
 
     protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
