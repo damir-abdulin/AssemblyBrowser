@@ -6,19 +6,19 @@ using AssemblyBrowserCore;
 
 namespace AssemblyBrowserGui;
 
-public class ApplicationViewModel : INotifyPropertyChanged
+public sealed class ApplicationViewModel : INotifyPropertyChanged
 {
-    private Model _model;
+    private readonly Model _model;
     private ObservableCollection<IElementInfo> _namespaces;
-    private OpenAssemblyDialog _openAssemblyDialog;
+    private readonly OpenAssemblyDialog _openAssemblyDialog;
     
     public ObservableCollection<IElementInfo> Namespaces
     {
         get => _namespaces;
-        set
+        private set
         {
             _namespaces = value;
-            OnPropertyChanged("Namespaces");
+            OnPropertyChanged();
         }
     }
     
@@ -38,7 +38,7 @@ public class ApplicationViewModel : INotifyPropertyChanged
                 }
                 catch (Exception ex)
                 {
-                    _openAssemblyDialog.ShowMessage(ex.Message);
+                    OpenAssemblyDialog.ShowMessage(ex.Message);
                 }
                 
             });
@@ -49,11 +49,12 @@ public class ApplicationViewModel : INotifyPropertyChanged
     {
         _model = new Model();
         _openAssemblyDialog = new OpenAssemblyDialog();
+        _namespaces = new ObservableCollection<IElementInfo>();
     }
     
     public event PropertyChangedEventHandler? PropertyChanged;
 
-    protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
+    private void OnPropertyChanged([CallerMemberName] string? propertyName = null)
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }

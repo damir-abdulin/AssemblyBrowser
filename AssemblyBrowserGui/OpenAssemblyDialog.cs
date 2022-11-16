@@ -1,11 +1,12 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using Microsoft.Win32;
 
 namespace AssemblyBrowserGui;
 
 public class OpenAssemblyDialog
 {
-    public string FilePath { get; set; }
+    public string FilePath { get; private set; } = string.Empty;
  
     public bool OpenFileDialog()
     {
@@ -16,7 +17,7 @@ public class OpenAssemblyDialog
         return true;
     }
     
-    public void ShowMessage(string message)
+    public static void ShowMessage(string message)
     {
         MessageBox.Show(message);
     }

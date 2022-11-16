@@ -25,7 +25,7 @@ public class Model : INotifyPropertyChanged
 
     public void UpdateNamespace(string assemblyPath)
     {
-        _namespaces = AssemblyLoader.GetNamespaces(assemblyPath);
+        Namespaces = AssemblyLoader.GetNamespaces(assemblyPath);
     }
 
     public event PropertyChangedEventHandler? PropertyChanged;
