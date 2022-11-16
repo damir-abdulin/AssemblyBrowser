@@ -13,6 +13,7 @@ public class IElementInfoTest
     private const string MethodSignature = "METHOD: Int32 Add(Int32)";
     private const string MethodWithoutParamsSignature = "METHOD: Void DoNothing()";
     private const string StaticMethodSignature = "METHOD: Int32 Add(Int32, Int32)";
+    private const string ExtensionMethodSignature = "EXTENSION METHOD: Int32 RandomFunction(B, Char)";
     private const string FieldFullName = "FIELD: Int32 publicField";
     private const string PropertyFullName = "PROPERTY: String Property";
     
@@ -20,7 +21,8 @@ public class IElementInfoTest
     
     private readonly IElementInfo? _methodAdd;
     private readonly IElementInfo? _methodWithoutParams;
-    private readonly IElementInfo? _staticMethodAdd;
+    private readonly IElementInfo? _staticMethod;
+    private readonly IElementInfo? _extensionMethod;
     private readonly IElementInfo? _field;
     private readonly IElementInfo? _property;
     
@@ -38,10 +40,12 @@ public class IElementInfoTest
         
         _methodAdd = 
             typeA.Elements.FirstOrDefault(el => el.Name == MethodSignature);
-        _staticMethodAdd = 
+        _staticMethod = 
             typeB.Elements.FirstOrDefault(el => el.Name == StaticMethodSignature);
         _methodWithoutParams =
             typeB.Elements.FirstOrDefault(el => el.Name == MethodWithoutParamsSignature);
+        _extensionMethod =
+            typeB.Elements.FirstOrDefault(el => el.Name == ExtensionMethodSignature);
         _field = 
             typeA.Elements.FirstOrDefault(el => el.Name == FieldFullName);
         _property = 
@@ -63,7 +67,7 @@ public class IElementInfoTest
     [Test]
     public void Name_GetStaticMethodFullName_ReturnSignature()
     {
-        Assert.IsNotNull(_staticMethodAdd, $"AssemblyInfo hasn't '{StaticMethodSignature}'");
+        Assert.IsNotNull(_staticMethod, $"AssemblyInfo hasn't '{StaticMethodSignature}'");
     }
     
     [Test]
@@ -72,6 +76,12 @@ public class IElementInfoTest
         Assert.IsNotNull(_methodWithoutParams, $"AssemblyInfo hasn't '{MethodWithoutParamsSignature}'");
     }
 
+    [Test]
+    public void Name_GetExtensionMethodFullName_ReturnSignature()
+    {
+        Assert.IsNotNull(_extensionMethod, $"AssemblyInfo hasn't '{ExtensionMethodSignature}'");
+    }
+    
     [Test]
     public void Name_GetPropertyFullName_ReturnTypeAndName()
     {
