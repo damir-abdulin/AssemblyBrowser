@@ -16,7 +16,7 @@ public class MethodInfo : IElementInfo
 
     private static string GetMethodSignature(System.Reflection.MethodInfo methodInfo)
     {
-        var signature = new StringBuilder($"{methodInfo.ReturnParameter.ParameterType.Name} {methodInfo.Name}(");
+        var signature = new StringBuilder($"METHOD: {methodInfo.ReturnParameter.ParameterType.Name} {methodInfo.Name}(");
         
         var methodParams = methodInfo.GetParameters();
         

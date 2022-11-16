@@ -10,11 +10,11 @@ public class IElementInfoTest
 {
     private const string TestingAssemblyPath = @"assemblies/AssemblyBrowserTest.dll";
     
-    private const string MethodSignature = "Int32 Add(Int32)";
-    private const string MethodWithoutParamsSignature = "Void DoNothing()";
-    private const string StaticMethodSignature = "Int32 Add(Int32, Int32)";
-    private const string FieldFullName = "Int32 publicField";
-    private const string PropertyFullName = "String Property";
+    private const string MethodSignature = "METHOD: Int32 Add(Int32)";
+    private const string MethodWithoutParamsSignature = "METHOD: Void DoNothing()";
+    private const string StaticMethodSignature = "METHOD: Int32 Add(Int32, Int32)";
+    private const string FieldFullName = "FIELD: Int32 publicField";
+    private const string PropertyFullName = "PROPERTY: String Property";
     
     private readonly ObservableCollection<IElementInfo> _namespaces;
     

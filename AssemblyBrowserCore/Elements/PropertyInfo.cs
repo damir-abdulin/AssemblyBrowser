@@ -9,7 +9,7 @@ public class PropertyInfo : IElementInfo
     
     public PropertyInfo(System.Reflection.PropertyInfo propertyInfo)
     {
-        Name = $"{propertyInfo.PropertyType.Name} {propertyInfo.Name}";
+        Name = $"PROPERTY: {propertyInfo.PropertyType.Name} {propertyInfo.Name}";
         Elements = new ObservableCollection<IElementInfo>();
     }
 }

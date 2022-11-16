@@ -9,7 +9,7 @@ public class FieldInfo : IElementInfo
     
     public FieldInfo(System.Reflection.FieldInfo fieldInfo)
     {
-        Name = $"{fieldInfo.FieldType.Name} {fieldInfo.Name}";
+        Name = $"FIELD: {fieldInfo.FieldType.Name} {fieldInfo.Name}";
         Elements = new ObservableCollection<IElementInfo>();
     }
 }
