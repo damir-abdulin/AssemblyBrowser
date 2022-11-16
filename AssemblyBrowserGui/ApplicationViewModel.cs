@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using AssemblyBrowserCore;
@@ -9,6 +10,7 @@ public class ApplicationViewModel : INotifyPropertyChanged
 {
     private Model _model;
     private ObservableCollection<IElementInfo> _namespaces;
+    private OpenAssemblyDialog _openAssemblyDialog;
     
     public ObservableCollection<IElementInfo> Namespaces
     {
@@ -27,15 +29,26 @@ public class ApplicationViewModel : INotifyPropertyChanged
         {
             return _loadNewAssemblyCommand ??= new RelayCommand(obj =>
             {
-                _model.UpdateNamespace(@"C:\Users\damir\RiderProjects\Faker\FakerCore\bin\Debug\net6.0\FakerCore.dll");
-                Namespaces = _model.Namespaces;
+                try
+                {
+                    if (!_openAssemblyDialog.OpenFileDialog()) return;
+                    
+                    _model.UpdateNamespace(_openAssemblyDialog.FilePath);
+                    Namespaces = _model.Namespaces;
+                }
+                catch (Exception ex)
+                {
+                    _openAssemblyDialog.ShowMessage(ex.Message);
+                }
+                
             });
         }
     }
-    
+
     public ApplicationViewModel()
     {
         _model = new Model();
+        _openAssemblyDialog = new OpenAssemblyDialog();
     }
     
     public event PropertyChangedEventHandler? PropertyChanged;
