@@ -26,14 +26,14 @@ public class AssemblyLoader
 
         foreach (var type in types)
         {
-            AddType(namespaces, type);
+            AddType(assembly, namespaces, type);
         }
 
         return namespaces;
     }
 
 
-    private static void AddType(ICollection<IElementInfo> namespaces, Type type)
+    private static void AddType(Assembly assembly, ICollection<IElementInfo> namespaces, Type type)
     {
         var typeNamespace = type.Namespace;
         if (typeNamespace is null) return;
@@ -45,6 +45,6 @@ public class AssemblyLoader
             namespaces.Add(namespaceInfo);
         }
         
-        namespaceInfo.AddType(type);
+        namespaceInfo.AddType(assembly, type);
     }
 }

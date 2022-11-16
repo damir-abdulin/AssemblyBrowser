@@ -20,7 +20,7 @@ public class Model : INotifyPropertyChanged
 
     public Model()
     {
-        _namespaces = AssemblyLoader.GetNamespaces(@"assemblies/AssemblyBrowserTest.dll");
+        _namespaces = new ObservableCollection<IElementInfo>();
     }
 
     public void UpdateNamespace(string assemblyPath)

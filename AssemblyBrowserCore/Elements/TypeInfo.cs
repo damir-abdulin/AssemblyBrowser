@@ -1,4 +1,6 @@
 ﻿using System.Collections.ObjectModel;
+using System.Reflection;
+using System.Runtime.CompilerServices;
 
 namespace AssemblyBrowserCore.Elements;
 
@@ -9,7 +11,7 @@ public class TypeInfo : IElementInfo
 
     private readonly Type _type;
 
-    public TypeInfo(Type type)
+    public TypeInfo(Assembly assembly, Type type)
     {
         _type = type;
         
@@ -19,6 +21,7 @@ public class TypeInfo : IElementInfo
         GetFields();
         GetProperties();
         GetMethods();
+        GetExtensionMethods(assembly, type);
     }
 
     private void GetFields()
@@ -47,7 +50,26 @@ public class TypeInfo : IElementInfo
 
         foreach (var methodInfo in methodsInfo)
         {
-            Elements.Add(new MethodInfo(methodInfo));
+            if (!methodInfo.IsDefined(typeof(ExtensionAttribute), false))
+                Elements.Add(new MethodInfo(methodInfo));
+            else
+                Elements.Add(new ExtensionMethodInfo(methodInfo, true));
         }
+    }
+    
+    private void GetExtensionMethods(Assembly assembly, Type extendedType)
+    {
+        var extensionMethods = from t in assembly.GetTypes()
+            where t.IsDefined(typeof(ExtensionAttribute), false)
+            from mi in t.GetMethods()
+            where mi.IsDefined(typeof(ExtensionAttribute), false)
+            where mi.GetParameters()[0].ParameterType == extendedType
+            select mi;
+        
+        foreach (var methodInfo in extensionMethods)
+        {
+            Elements.Add(new ExtensionMethodInfo(methodInfo, false));
+        }
+        
     }
 }
