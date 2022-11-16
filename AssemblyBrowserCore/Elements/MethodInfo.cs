@@ -25,7 +25,9 @@ public class MethodInfo : IElementInfo
             signature.Append($"{methodParam.ParameterType.Name}, ");
         }
 
-        signature.Remove(signature.Length - 2, 2);
+        if (methodParams.Length > 0)
+            signature.Remove(signature.Length - 2, 2);
+            
         signature.Append(')');
         
         return signature.ToString();
