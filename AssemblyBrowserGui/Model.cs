@@ -5,16 +5,16 @@ using AssemblyBrowserCore;
 
 namespace AssemblyBrowserGui;
 
-public class Model : INotifyPropertyChanged
+public sealed class Model : INotifyPropertyChanged
 {
     private ObservableCollection<IElementInfo> _namespaces;
     public ObservableCollection<IElementInfo> Namespaces
     {
         get => _namespaces;
-        set
+        private set
         {
             _namespaces = value;
-            OnPropertyChanged("Elements");
+            OnPropertyChanged();
         }
     }
 
@@ -30,7 +30,7 @@ public class Model : INotifyPropertyChanged
 
     public event PropertyChangedEventHandler? PropertyChanged;
 
-    protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
+    private void OnPropertyChanged([CallerMemberName] string? propertyName = null)
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
